@@ -2,6 +2,7 @@ import seaborn as sns  # Import Seaborn for data visualization
 from faicons import icon_svg  # Import for embedding FontAwesome icons in the UI
 from shiny import reactive  # Import reactive for creating reactive expressions
 from shiny.express import input, render, ui  # Import UI elements, input handling, and rendering functions
+from shinywidgets import render_bokeh   # Import Bokeh for interactive plots
 import palmerpenguins  # Import palmerpenguins for data
 
 # Load the dataset once at app start
@@ -32,12 +33,12 @@ with ui.sidebar(title="Filter controls"):
     )
     ui.a(
         "Dgraves4 GitHub App",
-        href="https://dgraves4.github.io/cintel-07-tdash/",
+        href="https://dgravesr4.github.io/cintel-07-tdash/",
         target="_blank",
     )
     ui.a(
         "Dgraves4 GitHub Issues",
-        href="https://github.com/dgraves4/cintel-07-tdash/issues",
+        href="https://github.com/dgravesr4/cintel-07-tdash/issues",
         target="_blank",
     )
     ui.a("PyShiny", href="https://shiny.posit.co/py/", target="_blank")
@@ -83,19 +84,29 @@ with ui.layout_column_wrap(fill=False):
 
 # Layout for plots and data tables
 with ui.layout_columns():
-    # Card layout for scatter plot
+    # Card layout for bokeh plot
     with ui.card(full_screen=True):
-        ui.card_header("Bill length and depth")
+        ui.card_header("Bill length and depth: Bokeh Plot")
         
-        # Render a scatter plot for bill length vs. depth
-        @render.plot
-        def length_depth():
-            return sns.scatterplot(
-                data=filtered_df(),
-                x="bill_length_mm",
-                y="bill_depth_mm",
-                hue="species",
+        ui.input_selectize(
+            "var", "Select variable",
+            choices=["bill_length_mm", "body_mass_g"]
+        )
+
+        @render_bokeh
+        def hist():
+            from bokeh.plotting import figure
+            from palmerpenguins import load_penguins
+
+            p = figure(x_axis_label=input.var(), y_axis_label="count")
+            bins = load_penguins()[input.var()].value_counts().sort_index()
+            p.quad(
+                top=bins.values,
+                bottom=0,
+                left=bins.index - 0.5,
+                right=bins.index + 0.5,
             )
+            return p
 
     # Card layout for displaying a data table of penguin stats
     with ui.card(full_screen=True):
@@ -120,3 +131,4 @@ def filtered_df():
     filt_df = df[df["species"].isin(input.species())]
     filt_df = filt_df.loc[filt_df["body_mass_g"] < input.mass()]
     return filt_df
+
