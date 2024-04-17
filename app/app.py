@@ -2,6 +2,7 @@ import seaborn as sns  # Import Seaborn for data visualization
 from faicons import icon_svg  # Import for embedding FontAwesome icons in the UI
 from shiny import reactive  # Import reactive for creating reactive expressions
 from shiny.express import input, render, ui  # Import UI elements, input handling, and rendering functions
+import shinywidgets 
 from shinywidgets import render_bokeh   # Import Bokeh for interactive plots
 import palmerpenguins  # Import palmerpenguins for data
 
