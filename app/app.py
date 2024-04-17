@@ -83,12 +83,6 @@ with ui.layout_column_wrap(fill=False):
         def bill_depth():
             return f"{filtered_df()['bill_depth_mm'].mean():.1f} mm"
 
-# Layout for plots and data tables
-with ui.layout_columns():
-    # Card layout for bokeh plot
-    with ui.card(full_screen=True):
-        ui.card_header("Bill length and depth: Bokeh Plot")
-        
 # Creating layout columns for displaying plots and data frames
 with ui.layout_columns(style="font-family: Courier, monospace;"):
     with ui.card(full_screen=True):
