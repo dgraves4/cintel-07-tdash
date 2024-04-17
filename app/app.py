@@ -2,7 +2,8 @@ import seaborn as sns  # Import Seaborn for data visualization
 from faicons import icon_svg  # Import for embedding FontAwesome icons in the UI
 from shiny import reactive  # Import reactive for creating reactive expressions
 from shiny.express import input, render, ui  # Import UI elements, input handling, and rendering functions
-from  shinywidgets import render_bokeh  # Import render_bokeh for rendering Bokeh plots
+import plotly.express as px  # Import Plotly Express for creating interactive plots
+from  shinywidgets import render_plotly  # Import render_bokeh for rendering Bokeh plots
 import palmerpenguins  # Import palmerpenguins for data
 
 # Load the dataset once at app start
@@ -88,26 +89,19 @@ with ui.layout_columns():
     with ui.card(full_screen=True):
         ui.card_header("Bill length and depth: Bokeh Plot")
         
-        ui.input_selectize(
-            "var", "Select variable",
-            choices=["bill_length_mm", "body_mass_g"]
-        )
+# Creating layout columns for displaying plots and data frames
+with ui.layout_columns(style="font-family: Courier, monospace;"):
+    with ui.card(full_screen=True):
+        ui.card_header("Plotly Chart: Bill Length vs. Depth by Species")
 
-        @render_bokeh
-        def hist():
-            from bokeh.plotting import figure
-            from palmerpenguins import load_penguins
-
-            p = figure(x_axis_label=input.var(), y_axis_label="count")
-            bins = load_penguins()[input.var()].value_counts().sort_index()
-            p.quad(
-                top=bins.values,
-                bottom=0,
-                left=bins.index - 0.5,
-                right=bins.index + 0.5,
+        @render_plotly
+        def length_depth_plotly():
+            return px.histogram(
+                data_frame=filtered_df(),
+                x="bill_length_mm",
+                y="bill_depth_mm",
+                color="species",
             )
-            return p
-
     # Card layout for displaying a data table of penguin stats
     with ui.card(full_screen=True):
         ui.card_header("Data Table: Penguin Data")
