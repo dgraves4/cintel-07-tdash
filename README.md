@@ -1,4 +1,15 @@
-# PyShiny Basic Dashboard (Penguins)
+# Module 7 Project:  Creating and closing issues in GitHub using PyShiny Basic Dashboard (Penguins)
+
+This module demonstrates to the use of GitHub issues to collaborate on a project.  The following issues are addressed in this project:
+
+1. Deployment of Forked App
+2. Fix UI Card Header for the Interactive DataGrid
+3. Customize Display Text
+4. Documentation Comments in app.py
+5. Interactive Plotly Chart Enhancement
+
+These issues can be found in the closed section of the "issues" tab in the GitHub Repository:
+![alt text](image.png)
 
 ## Tools
 
