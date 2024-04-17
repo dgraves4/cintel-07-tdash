@@ -8,7 +8,7 @@ import palmerpenguins  # Import palmerpenguins for data
 df = palmerpenguins.load_penguins()
 
 # Set global page options such as the title and layout configurations
-ui.page_opts(title="Penguins dashboard", fillable=True)
+ui.page_opts(title="Dgraves4 Module 7 Penguins Dashboard", fillable=True)
 
 # Define a sidebar for interactive controls
 with ui.sidebar(title="Filter controls"):
@@ -26,18 +26,18 @@ with ui.sidebar(title="Filter controls"):
 
     # Links to external resources and further reading
     ui.a(
-        "GitHub Source",
-        href="https://github.com/denisecase/cintel-07-tdash",
+        "Dgraves4 GitHub Source",
+        href="https://github.com/dgravesr4/cintel-07-tdash",
         target="_blank",
     )
     ui.a(
-        "GitHub App",
-        href="https://denisecase.github.io/cintel-07-tdash/",
+        "Dgraves4 GitHub App",
+        href="https://dgraves4.github.io/cintel-07-tdash/",
         target="_blank",
     )
     ui.a(
-        "GitHub Issues",
-        href="https://github.com/denisecase/cintel-07-tdash/issues",
+        "Dgraves4 GitHub Issues",
+        href="https://github.com/dgraves4/cintel-07-tdash/issues",
         target="_blank",
     )
     ui.a("PyShiny", href="https://shiny.posit.co/py/", target="_blank")
@@ -99,7 +99,7 @@ with ui.layout_columns():
 
     # Card layout for displaying a data table of penguin stats
     with ui.card(full_screen=True):
-        ui.card_header("Penguin Data")
+        ui.card_header("Data Table: Penguin Data")
         
         # Render a data frame showing selected columns from filtered data
         @render.data_frame
